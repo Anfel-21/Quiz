@@ -1,35 +1,98 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    const correctAnswer = document.querySelectorAll(".correct")
-    const wrongAnswer = document.querySelectorAll(".wrong")
-
+    let next = document.getElementById("next")
     let score = document.getElementById("scr")
-    let main1 = document.getElementById("main1")
-    let main2 = document.getElementById("main2")
+    let main = document.getElementById("main")
+    let correctAnswers = ["JSON.parse()", "pop()", "32","Returns a value ", "[1, 2, 3]" ]
+    let finalScore = []
+    let i = 0
+    let answer = [
+                    {
+                        question : "1/ Which method converts JSON to an object?",
+                        answers :["JSON.stringify()", "parse.JSON()", "JSON.parse()", "toJSON()"],
+
+                    },
+                    {
+                        question : "2/ Which array method removes the last element?",
+                        answers :["pop()", "shift()", "remove()", "delete()"],
+
+                    },
+                    {
+                        question : "3/ What will 3 + '2' return",
+                        answers :["5", "32", "NaN", "undefined"],
+
+                    },
+                    {
+                        question :"4/ What does return do in a function?",
+                        answers :["Ends the loop", "Stops the page", "Returns a value ", "Stops the page"],
+                    },
+                    {
+                        question :"5/ How to write an array in JS?",
+                        answers :["{1, 2, 3}","1, 2, 3", "[1 2 3]", "[1, 2, 3]"],
+                    }        
+    ]
     
-    let result = 0
 
-    main2.addEventListener("click",function(){
-            main2.style.display = "none"
-            main1.style.display = "flex"               
-    
-            correctAnswer.forEach((btn)=>{
-                btn.addEventListener("click",function(){
-                    btn.style.backgroundColor = "rgb(118, 205, 137)"
-                    btn.style.color = "white"
-                    result ++
-                    score.innerHTML = `Score ${result}/5`
-                })
+   next.addEventListener("click", ()=>{
+            next.innerHTML = "Next"
+            if(i<=4) {
+                        main.innerHTML =
+                                `
+                                  <h4 class="question">${answer[i].question}</h4>
+                                  <div class="answers">
+                                         <button class="answer" >${answer[i].answers[0]}</button>
+                                         <button class="answer">${answer[i].answers[1]}</button>
+                                         <button class="answer">${answer[i].answers[2]}</button>
+                                         <button class="answer">${answer[i].answers[3]}</button>
+                                  </div>
+                                ` 
+                        next.style.display = "none"
+            }else{ 
+                result()
+            }    
+            i++
+          
+            let answers =document.querySelectorAll(".answer")
+
+            answers.forEach((btn)=>{
+                                btn.addEventListener("click",()=>{
+                                        if(correctAnswers.includes(btn.innerHTML)){
+                                            next.style.display = "flex"
+                                            btn.style.backgroundColor = "rgb(118, 205, 137)"
+                                            btn.style.color = "white"  
+                                            finalScore.push(btn.innerHTML)
+                                            score.innerHTML = `Score ${finalScore.length}/5`
+                                            btn.disabled = true;
+                                        }else{
+                                            btn.style.backgroundColor = "rgb(242, 0, 0)"
+                                            let answers =document.querySelectorAll(".answer")
+                                            answers.forEach((btn)=>{
+                                                    if(correctAnswers.includes(btn.innerHTML)){
+                                                    next.style.display = "flex"
+                                                    btn.style.backgroundColor = "rgb(118, 205, 137)" 
+                                                    btn.style.color = "white"  
+                                                    btn.disabled = true;                       
+                                                    }
+                                            })          
+                                        }
+                                })       
             })
-
-        
-            wrongAnswer.forEach((btn)=>{
-                btn.addEventListener("click",function(){
-                    btn.style.backgroundColor = "rgb(242, 0, 0)"
-                    btn.style.color = "white"
-                })
-            })
-
     })
+
+   function result(){
+              next.style.display ="none"
+           
+              let finalResultesult = finalScore.length
+              if(finalResultesult <= 1){
+                     main.innerHTML =`<h2 class="question">Learning takes time. You can do it!</h2>`
+              }else{
+                if(finalResultesult <= 3){
+                    main.innerHTML =`<h2 class="question">Nice effort! Just a little more practice.</h2>`
+                }else{
+                    main.innerHTML =`<h2 class="question">Awesome work! Keep it up!</h2>`
+                }
+              } 
+    }
+
     
 })
