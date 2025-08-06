@@ -3,6 +3,10 @@ document.addEventListener("DOMContentLoaded", () => {
     let next = document.getElementById("next")
     let score = document.getElementById("scr")
     let main = document.getElementById("main")
+    let prev = document.getElementById("prev")
+    let restart = document.getElementById("restart")
+
+    let arr = []
     let correctAnswers = ["JSON.parse()", "pop()", "32","Returns a value ", "[1, 2, 3]" ]
     let finalScore = []
     let i = 0
@@ -32,8 +36,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     }        
     ]
     
-
-   next.addEventListener("click", ()=>{
+    next.addEventListener("click" , quiz)
+    
+   function quiz(){ 
             next.innerHTML = "Next"
             if(i<=4) {
                         main.innerHTML =
@@ -47,6 +52,9 @@ document.addEventListener("DOMContentLoaded", () => {
                                   </div>
                                 ` 
                         next.style.display = "none"
+                        if(i>0){prev.style.display = "flex"}
+                        
+                        arr.push(main.innerHTML)
             }else{ 
                 result()
             }    
@@ -58,6 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                 btn.addEventListener("click",()=>{
                                         if(correctAnswers.includes(btn.innerHTML)){
                                             next.style.display = "flex"
+                                            if(i>1){prev.style.display = "flex"}
                                             btn.style.backgroundColor = "rgb(118, 205, 137)"
                                             btn.style.color = "white"  
                                             finalScore.push(btn.innerHTML)
@@ -75,12 +84,23 @@ document.addEventListener("DOMContentLoaded", () => {
                                                     }
                                             })          
                                         }
-                                })       
+                                         prev.addEventListener ("click", ()=>{
+                                                
+                                                     main.innerHTML = arr[i-2]
+                                                     console.log(arr[i-1])
+
+                                                     next.style.display = "flex"
+                                                                                                
+                                            }) 
+                                })     
             })
-    })
+   }
+
+
 
    function result(){
               next.style.display ="none"
+              prev.style.display ="none"
            
               let finalResultesult = finalScore.length
               if(finalResultesult <= 1){
@@ -92,7 +112,22 @@ document.addEventListener("DOMContentLoaded", () => {
                     main.innerHTML =`<h2 class="question">Awesome work! Keep it up!</h2>`
                 }
               } 
+
+              restart.style.display ="flex"
+              play()
     }
 
-    
+
+
+    function play() {
+      restart.addEventListener("click", function () {
+            i = 0
+            finalScore = []
+            score.innerHTML = "Score 0/5"  
+            quiz()
+            restart.style.display ="none"
+      })
+    } 
+
+
 })

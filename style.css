@@ -13,7 +13,7 @@ body{
 
 
 @media (max-width: 479px) {
-.container{
+#container{
     width: 98%;
 }
 .score{
@@ -28,7 +28,7 @@ body{
 
 
 @media (min-width: 480px) and (max-width: 767px) {
-.container{
+#container{
     width: 90%;
 }
 .score{
@@ -42,7 +42,7 @@ body{
 
 
 @media (min-width: 768px) and (max-width: 991px) {
-.container{
+#container{
     width: 60%;
 }
 .score{
@@ -57,7 +57,7 @@ body{
 
 
 @media (min-width: 992px) {
-.container{
+#container{
     width: 50%;
 }
 .score{
@@ -71,7 +71,7 @@ body{
 
 
 
-.container{
+#container{
     background-color: rgb(0, 0, 0);
     display: flex;
     flex-direction: column;
@@ -142,7 +142,10 @@ body{
     color: white;
     border: 2px solid white;
 }
-#next{
+#btn{
+    display: flex;
+}
+#next ,#prev ,#restart{
     background: linear-gradient(to right, rgb(78, 11, 70), rgb(169, 39, 158));
     color: white;
     border: none;
@@ -150,7 +153,14 @@ body{
     padding: 10px 25px;
     cursor: pointer;
 }
-#next:hover{
+#prev{
+    display: none;
+    margin-right: 10px;
+}
+#next:hover, #prev:hover{
    box-shadow: 0px 0px 10px rgb(255, 255, 255);
    color: white;
+}
+#restart{
+    display: none;
 }
