@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     next.addEventListener("click" , quiz)
     
-   function quiz(){ 
+    function quiz(){ 
             next.innerHTML = "Next"
             if(i<=4) {
                         main.innerHTML =
@@ -53,13 +53,13 @@ document.addEventListener("DOMContentLoaded", () => {
                                 ` 
                         next.style.display = "none"
                         if(i>0){prev.style.display = "flex"}
-                        
-                        arr.push(main.innerHTML)
+                       
+                        arr.push(main.innerHTML)        
             }else{ 
                 result()
             }    
             i++
-          
+            
             let answers =document.querySelectorAll(".answer")
 
             answers.forEach((btn)=>{
@@ -68,8 +68,9 @@ document.addEventListener("DOMContentLoaded", () => {
                                             next.style.display = "flex"
                                             if(i>1){prev.style.display = "flex"}
                                             btn.style.backgroundColor = "rgb(118, 205, 137)"
-                                            btn.style.color = "white"  
-                                            finalScore.push(btn.innerHTML)
+                                            btn.style.color = "white"
+                                            if(!finalScore.includes(btn.innerHTML)) {finalScore.push(btn.innerHTML)} 
+                                            
                                             score.innerHTML = `Score ${finalScore.length}/5`
                                             btn.disabled = true;
                                         }else{
@@ -83,20 +84,20 @@ document.addEventListener("DOMContentLoaded", () => {
                                                     btn.disabled = true;                       
                                                     }
                                             })          
-                                        }
-                                         prev.addEventListener ("click", ()=>{
-                                                
-                                                     main.innerHTML = arr[i-2]
-                                                     console.log(arr[i-1])
-
-                                                     next.style.display = "flex"
-                                                                                                
-                                            }) 
+                                        } 
                                 })     
             })
    }
 
-
+   prev.addEventListener ("click", ()=>{  
+                            if(i>1){
+                            i--
+                            main.innerHTML = arr[i-1]
+                            next.style.display = "flex"
+                            console.log(i--)
+                            }
+                            
+    })
 
    function result(){
               next.style.display ="none"
