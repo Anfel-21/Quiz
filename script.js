@@ -84,20 +84,15 @@ document.addEventListener("DOMContentLoaded", () => {
                                                     btn.disabled = true;                       
                                                     }
                                             })          
-                                        } 
+                                        }
+                                         prev.addEventListener ("click", ()=>{  
+                                                     main.innerHTML = arr[i-2]
+                                                     next.style.display = "flex"                                               
+                                            })  
+                                        
                                 })     
             })
    }
-
-   prev.addEventListener ("click", ()=>{  
-                            if(i>1){
-                            i--
-                            main.innerHTML = arr[i-1]
-                            next.style.display = "flex"
-                            console.log(i--)
-                            }
-                            
-    })
 
    function result(){
               next.style.display ="none"
