@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let score = document.getElementById("scr")
     let main = document.getElementById("main")
     let prev = document.getElementById("prev")
+    let start = document.getElementById("start")
     let restart = document.getElementById("restart")
 
     let arr = []
@@ -35,11 +36,12 @@ document.addEventListener("DOMContentLoaded", () => {
                         answers :["{1, 2, 3}","1, 2, 3", "[1 2 3]", "[1, 2, 3]"],
                     }        
     ]
-    
-    next.addEventListener("click" , quiz)
-    
+
+
+    start.addEventListener("click" , quiz)
+
     function quiz(){ 
-            next.innerHTML = "Next"
+            start.style.display = "none"
             if(i<=4) {
                         main.innerHTML =
                                 `
@@ -51,50 +53,55 @@ document.addEventListener("DOMContentLoaded", () => {
                                          <button class="answer">${answer[i].answers[3]}</button>
                                   </div>
                                 ` 
-                        next.style.display = "none"
-                        if(i>0){prev.style.display = "flex"}
-                       
-                        arr.push(main.innerHTML)        
+                       if(i>0){prev.style.display = "flex"}
+        
+                        arr.push(main.innerHTML)   
             }else{ 
                 result()
             }    
             i++
-            
-            let answers =document.querySelectorAll(".answer")
 
-            answers.forEach((btn)=>{
-                                btn.addEventListener("click",()=>{
-                                        if(correctAnswers.includes(btn.innerHTML)){
-                                            next.style.display = "flex"
-                                            if(i>1){prev.style.display = "flex"}
+            let answers =document.querySelectorAll(".answer") 
+
+             answers.forEach((btn)=>{
+                btn.addEventListener("click",()=>{
+                    if(correctAnswers.includes(btn.innerHTML)){
                                             btn.style.backgroundColor = "rgb(118, 205, 137)"
                                             btn.style.color = "white"
-                                            if(!finalScore.includes(btn.innerHTML)) {finalScore.push(btn.innerHTML)} 
-                                            
+                                            if(!finalScore.includes(btn.innerHTML)) { 
+                                                finalScore.push(btn.innerHTML)
+                                            } 
                                             score.innerHTML = `Score ${finalScore.length}/5`
                                             btn.disabled = true;
+                                            next.style.display = "flex"
+                                            if(i>1){prev.style.display = "flex"}
                                         }else{
                                             btn.style.backgroundColor = "rgb(242, 0, 0)"
-                                            let answers =document.querySelectorAll(".answer")
                                             answers.forEach((btn)=>{
                                                     if(correctAnswers.includes(btn.innerHTML)){
-                                                    next.style.display = "flex"
                                                     btn.style.backgroundColor = "rgb(118, 205, 137)" 
                                                     btn.style.color = "white"  
-                                                    btn.disabled = true;                       
-                                                    }
+                                                    btn.disabled = true;
+                                                    next.style.display = "flex"
+                                                    if(i>1){prev.style.display = "flex"}                       
+                                                    }        
                                             })          
                                         }
-                                         prev.addEventListener ("click", ()=>{  
-                                                     main.innerHTML = arr[i-2]
-                                                     next.style.display = "flex"                                               
-                                            })  
-                                        
-                                })     
-            })
-   }
+                })
+             })
+        }
 
-   function result(){
+        next.addEventListener("click" , quiz)
+        console.log(i)
+        prev.addEventListener("click", () => {
+          if (i > 1) {
+               i--
+               main.innerHTML = arr[i-1]
+               console.log(i)
+        }
+        })
+
+        function result(){
               next.style.display ="none"
               prev.style.display ="none"
            
@@ -111,19 +118,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
               restart.style.display ="flex"
               play()
-    }
+        }
 
-
-
-    function play() {
-      restart.addEventListener("click", function () {
-            i = 0
-            finalScore = []
-            score.innerHTML = "Score 0/5"  
-            quiz()
-            restart.style.display ="none"
-      })
-    } 
-
-
+         function play() {
+            restart.addEventListener("click", function () {
+                    i = 0
+                    finalScore = []
+                    score.innerHTML = "Score 0/5"  
+                    quiz()
+                    restart.style.display ="none"
+            })
+         } 
 })
