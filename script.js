@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                   </div>
                                 ` 
                        if(i>0){prev.style.display = "flex"}
-        
+                       next.style.display = "none"
                         arr.push(main.innerHTML)   
             }else{ 
                 result()
@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
                check()
         }
         })
-
+        
         function check(){
             let answers =document.querySelectorAll(".answer") 
 
@@ -89,6 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                             btn.disabled = true;
                                             next.style.display = "flex"
                                             if(i>1){prev.style.display = "flex"}
+                                            
                                         }else{
                                             btn.style.backgroundColor = "rgb(242, 0, 0)"
                                             answers.forEach((btn)=>{
@@ -97,10 +98,13 @@ document.addEventListener("DOMContentLoaded", () => {
                                                     btn.style.color = "white"  
                                                     btn.disabled = true;
                                                     next.style.display = "flex"
-                                                    if(i>1){prev.style.display = "flex"}                       
+                                                    if(i>1){prev.style.display = "flex"} 
+                                                                        
                                                     }        
-                                            })          
+                                            }) 
+                                                     
                                         }
+                                        
                 })
              })
         }
