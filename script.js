@@ -60,7 +60,21 @@ document.addEventListener("DOMContentLoaded", () => {
                 result()
             }    
             i++
+           
+            check()
+            
+        }
 
+        next.addEventListener("click" , quiz)
+        prev.addEventListener("click", () => {
+          if (i > 1) {
+               i--
+               main.innerHTML = arr[i-1]
+               check()
+        }
+        })
+
+        function check(){
             let answers =document.querySelectorAll(".answer") 
 
              answers.forEach((btn)=>{
@@ -90,16 +104,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 })
              })
         }
-
-        next.addEventListener("click" , quiz)
-        console.log(i)
-        prev.addEventListener("click", () => {
-          if (i > 1) {
-               i--
-               main.innerHTML = arr[i-1]
-               console.log(i)
-        }
-        })
 
         function result(){
               next.style.display ="none"
